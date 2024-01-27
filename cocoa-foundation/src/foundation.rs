@@ -629,6 +629,42 @@ pub enum NSComparisonResult {
     NSOrderedDescending = 1,
 }
 
+pub trait NSFileManager: Sized {
+    // Should this return id?
+    unsafe fn defaultManager() -> Self;
+    
+    unsafe fn urlTest(self) -> id; /* NSURL */
+    
+    unsafe fn contentsOfDirectoryAt(self, path: id, error: id) -> id; /* NSArray<NSString*>* */
+    unsafe fn contentsAtPath(self, path: id) -> id; /* NSData* */
+    
+}
+
+impl NSFileManager for id {
+    // Should this return Self?
+    unsafe fn defaultManager() -> id {
+        msg_send![class!(NSFileManager), defaultManager]
+    }
+    
+    unsafe fn urlTest(self) -> id {
+        msg_send![self,
+            URLForDirectory: 5
+            inDomain: 0xffff
+            appropriateForURL: nil
+            create: NO
+            error: nil
+        ]
+    }
+    
+    unsafe fn contentsOfDirectoryAt(self, path: id, error: id) -> id {
+        msg_send![self, contentsOfDirectoryAtPath: path error: error]
+    }
+    
+    unsafe fn contentsAtPath(self, path: id) -> id {
+        msg_send![self, contentsAtPath: path]
+    }
+}
+
 pub trait NSString: Sized {
     unsafe fn alloc(_: Self) -> id {
         msg_send![class!(NSString), alloc]

@@ -24,7 +24,11 @@ use foreign_types::ForeignType;
 use std::ops::Mul;
 use std::ptr;
 
+#[cfg(target_os = "macos")]
 use crate::appkit::CGLContextObj;
+#[cfg(target_os = "ios")]
+use crate::uikit::CGLContextObj;
+
 use crate::base::{id, nil, BOOL, YES};
 use crate::foundation::NSUInteger;
 

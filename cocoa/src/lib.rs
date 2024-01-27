@@ -24,9 +24,11 @@ extern crate objc;
 
 #[cfg(target_os = "macos")]
 pub mod appkit;
+#[cfg(target_os = "ios")]
+pub mod uikit;
 pub mod base;
 pub mod foundation;
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 pub mod quartzcore;
 #[macro_use]
 mod macros;
