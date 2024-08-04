@@ -1328,6 +1328,8 @@ pub trait NSBundle: Sized {
     unsafe fn bundleIdentifier(self) -> id /* NSString */;
 
     unsafe fn resourcePath(self) -> id /* NSString */;
+
+    unsafe fn pathForResource(self, name: id, extension: id) -> id /* NSString */;
 }
 
 impl NSBundle for id {
@@ -1352,6 +1354,10 @@ impl NSBundle for id {
 
     unsafe fn resourcePath(self) -> id /* NSString */ {
         msg_send![self, resourcePath]
+    }
+
+    unsafe fn pathForResource(self, name: id, extension: id) -> id /* NSString */ {
+        msg_send![self, pathForResource: name ofType: extension]
     }
 }
 
