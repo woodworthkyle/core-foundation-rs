@@ -638,7 +638,7 @@ pub trait NSFileManager: Sized {
     unsafe fn contentsOfDirectoryAt(self, path: id, error: id) -> id; /* NSArray<NSString*>* */
     unsafe fn contentsAtPath(self, path: id) -> id; /* NSData* */
     unsafe fn fileExistsAtPath(self, path: id) -> id; /* BOOL */
-    unsafe fn fileExistsAtPath(self, path: id, isDirectory: id) -> id; /* BOOL */
+    //unsafe fn fileExistsAtPath(self, path: id, isDirectory: id) -> id; /* BOOL */
     
 }
 
@@ -670,9 +670,11 @@ impl NSFileManager for id {
         msg_send![self, fileExistsAtPath: path]
     }
 
+    /*
     unsafe fn fileExistsAtPath(self, path: id, isDirectory: id) -> id {
         msg_send![self, fileExistsAtPath: path, isDirectory: isDirectory]
     }
+    */
 }
 
 pub trait NSString: Sized {
